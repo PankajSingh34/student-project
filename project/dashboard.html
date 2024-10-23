@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Counseling Portal</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f0f4f8;
+      font-family: 'Roboto', sans-serif;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .dashboard-section {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+    .dashboard-header {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .stats-card {
+      background-color: #004aad;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .stats-card h4 {
+      margin: 0;
+    }
+    .btn-manage {
+      background-color: #28a745;
+      color: white;
+      border: none;
+    }
+    .btn-manage:hover {
+      background-color: #218838;
+    }
+    .btn-view {
+      background-color: #004aad;
+      color: white;
+      border: none;
+    }
+    .btn-view:hover {
+      background-color: #003a80;
+    }
+    .btn-back {
+      background-color: #6c757d;
+      color: white;
+      border: none;
+    }
+    .btn-back:hover {
+      background-color: #5a6268;
+    }
+    .table thead th {
+      background-color: #004aad;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="dashboard-section">
+      <div class="dashboard-header">
+        <h2>Admin Dashboard</h2>
+        <p>Welcome to the admin dashboard. Here you can manage the overall counseling process and view key statistics.</p>
+      </div>
+
+      <!-- Stats Section -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="stats-card">
+            <h4>Total Students</h4>
+            <p>{{ total_students }}</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stats-card">
+            <h4>Branches Available</h4>
+            <p>{{ total_branches }}</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stats-card">
+            <h4>Branches Assigned</h4>
+            <p>{{ branches_assigned }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student and Branch Management Links -->
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <a href="/admin-panel" class="btn btn-manage btn-block">Manage Student Assignments</a>
+        </div>
+        <div class="col-md-6">
+          <a href="/branch-management" class="btn btn-view btn-block">Manage Branch Availability</a>
+        </div>
+      </div>
+
+      <!-- List of Students -->
+      <div class="table-section mt-5">
+        <h4>Recent Student Assignments</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Student Name</th>
+                <th>Assigned Branch</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for student in recent_assignments %}
+              <tr>
+                <td>{{ student.rank }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.assigned_branch }}</td>
+                <td>
+                  <a href="student-details.html" class="btn btn-view">View Details</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Back Button -->
+      <div class="text-center mt-5">
+        <a href="/" class="btn btn-back">Log Out</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

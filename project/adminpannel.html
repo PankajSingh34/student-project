@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Student Counseling Portal</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f7f9fc;
+      font-family: 'Poppins', sans-serif;
+    }
+    .navbar {
+      background-color: #004aad;
+    }
+    .navbar a {
+      color: white;
+      margin-right: 20px;
+    }
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #004aad;
+      color: white;
+    }
+    .admin-panel {
+      margin: 20px;
+    }
+    @media (max-width: 768px) {
+      .admin-panel {
+        margin: 10px;
+      }
+      .navbar a {
+        margin-right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">Counseling Portal</a>
+    <div class="ml-auto">
+      <a href="/dashboard.html" class="btn btn-outline-light">Dashboard</a>
+      <a href="/admin-logout.html" class="btn btn-outline-light">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Admin Panel -->
+  <div class="container admin-panel">
+    <h1 class="text-center">Admin Panel</h1>
+    <div class="mb-4">
+      <h2>Student Applications</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Total Marks</th>
+            <th>Assigned Branch</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>John Doe</td>
+            <td>john.doe@example.com</td>
+            <td>85</td>
+            <td>
+              <select class="form-control" onchange="updateBranch('John Doe', this.value)">
+                <option value="">Select Branch</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Electrical Engineering">Electrical Engineering</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+              </select>
+            </td>
+            <td>
+              <button class="btn btn-primary" onclick="approveApplication('John Doe')">Approve</button>
+            </td>
+          </tr>
+          <!-- Additional student rows can be added here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>&copy; 2024 Student Counseling Portal. All Rights Reserved.</p>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <script>
+    function updateBranch(studentName, branch) {
+      // Function to handle branch assignment (can be AJAX call)
+      console.log(`Branch for ${studentName} updated to ${branch}`);
+    }
+
+    function approveApplication(studentName) {
+      // Function to handle application approval (can be AJAX call)
+      alert(`${studentName}'s application approved!`);
+    }
+  </script>
+</body>
+</html>
+
+

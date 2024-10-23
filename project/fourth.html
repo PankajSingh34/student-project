@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Confirmation Page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f0f4f8;
+      font-family: 'Roboto', sans-serif;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .confirmation-section {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+    .btn-primary {
+      background-color: #004aad;
+      border: none;
+    }
+    .btn-submit-receipt {
+      background-color: #28a745;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2 class="text-center mb-4">Branch Confirmation</h2>
+
+    <div class="confirmation-section">
+      <h4>Hello, {{ student.name }}</h4>
+      <p>You have been assigned the following branch:</p>
+      <h5><strong>{{ student.assigned_branch }}</strong></h5>
+
+      {% if student.accepted_offer %}
+        <p>You have already accepted this offer. Your fee receipt has been submitted.</p>
+        <p>You can download your offer letter below.</p>
+        <a href="/download-offer-letter/{{ student.id }}" class="btn btn-primary">Download Offer Letter</a>
+      {% else %}
+        <p>If you wish to accept this branch, please confirm below:</p>
+
+        <form action="/accept-branch/{{ student.id }}" method="POST">
+          <button type="submit" class="btn btn-primary">Accept Branch</button>
+        </form>
+
+        <form action="/submit-receipt/{{ student.id }}" method="POST" enctype="multipart/form-data" class="mt-3">
+          <label for="receipt">Submit Fee Receipt:</label>
+          <input type="file" name="receipt" id="receipt" class="form-control-file" required>
+          <button type="submit" class="btn btn-submit-receipt mt-2">Submit Receipt</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

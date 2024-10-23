@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Details - Counseling Portal</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f0f4f8;
+      font-family: 'Roboto', sans-serif;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .profile-section {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+    .profile-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .profile-header h3 {
+      margin: 0;
+    }
+    .btn-back {
+      background-color: #004aad;
+      color: white;
+      border: none;
+    }
+    .btn-back:hover {
+      background-color: #003a80;
+    }
+    .profile-info {
+      margin-bottom: 30px;
+    }
+    .profile-info h5 {
+      font-weight: bold;
+    }
+    .btn-action {
+      background-color: #28a745;
+      color: white;
+      border: none;
+    }
+    .btn-action:hover {
+      background-color: #218838;
+    }
+    .table-section {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+    .table thead th {
+      background-color: #004aad;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Student Profile Section -->
+    <div class="profile-section">
+      <div class="profile-header">
+        <h3>Student Details</h3>
+        <a href="adminpannel.html" class="btn btn-back">Back to Admin Panel</a>
+      </div>
+      
+      <div class="profile-info">
+        <h5>Student Name: {{ student.name }}</h5>
+        <p><strong>Rank:</strong> {{ student.rank }}</p>
+        <p><strong>Total Marks:</strong> {{ student.total_marks }}</p>
+        <p><strong>Branch Preferences:</strong> {{ student.branch1 }}, {{ student.branch2 }}, {{ student.branch3 }}</p>
+        <p><strong>Assigned Branch:</strong> {{ student.assigned_branch }}</p>
+      </div>
+
+      <!-- Actions for Admin -->
+      <div>
+        <form action="/assign-branch/{{ student.id }}" method="POST" class="d-inline">
+          <select name="assigned_branch" class="form-control">
+            <option value="{{ student.branch1 }}">{{ student.branch1 }}</option>
+            <option value="{{ student.branch2 }}">{{ student.branch2 }}</option>
+            <option value="{{ student.branch3 }}">{{ student.branch3 }}</option>
+          </select>
+          <button type="submit" class="btn btn-action mt-3">Update Assigned Branch</button>
+        </form>
+        {% if student.assigned_branch %}
+        <form action="/generate-offer-letter/{{ student.id }}" method="POST" class="d-inline">
+          <button type="submit" class="btn btn-action mt-3">Generate Offer Letter</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Counseling Progress Table -->
+    <div class="table-section mt-5">
+      <h4>Counseling Progress</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Step</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for progress in student.progress %}
+            <tr>
+              <td>{{ progress.step }}</td>
+              <td>{{ progress.status }}</td>
+              <td>{{ progress.date }}</td>
+              <td>
+                <form action="/update-progress/{{ student.id }}/{{ progress.id }}" method="POST" class="d-inline">
+                  <select name="status" class="form-control">
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                  <button type="submit" class="btn btn-action mt-2">Update Status</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
